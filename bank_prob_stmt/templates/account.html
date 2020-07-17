@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Account Information</title>
+</head>
+<body>
+
+    <form action="http://localhost:5000/account/save/" method="post">
+        Account Number <input type="text" name="id" value="{{acc.id}}"><br><br>
+        Account Balnace <input type="text" name="balance" value="{{acc.balance}}"><br><br>
+        Account Type
+        {% for key,value in accTypes.items() %}
+        <input type="radio" name="type" value="{{key}}"> : {{value}} &nbsp;
+        {% endfor %}
+        <br><br>
+        <input type="submit">
+    </form>
+
+
+    <table border="1">
+            <thead>
+                <th>AccNo</th>
+                <th>CustomerName</th>
+                <th>AccType</th>
+                <th>AccBalance</th>
+                <th>CustomerAddress</th>
+                <th>BankName</th>
+            </thead>
+            {% for acc in accounts %}
+                <tbody>
+                    <td>{{acc.id}}</td>
+                    <td>
+                        {{acc.customer.id}}
+                        {% if acc.customer and acc.customer.gender=='M' %} Mr. {% elif acc.customer and acc.customer.gender=='F'%} Mrs. {% endif %}      {{acc.customer.name}}
+                    </td>
+                    <td>{{acc.type}}</td>
+                    <td>{{acc.balance}}</td>
+
+                    <td>
+                       {% if acc.customer %} {{acc.customer.address.city}} {% else %} No customer..{% endif %}
+                    </td>
+                    <td>
+                        {% if acc.customer %}
+                            {% for bank in acc.customer.banks %}
+                                {{bank.name}} ,
+                            {% endfor %}
+                        {% else %}
+                            As No Customer..NO Bank..
+                        {% endif %}
+                    </td>
+                    </tbody>
+            {% endfor %}
+    </table>
+
+</body>
+</html>

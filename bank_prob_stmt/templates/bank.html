@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BankPage</title>
+</head>
+<body>
+
+    <h3>Bank Adminstration Page</h3>
+
+    <form action="http://localhost:5000/bank/assign/">
+       Customer List :  <select name="customer">
+                {% for cust in customers %}
+                    <option value="{{cust.id}}">{{cust.id}}-{{cust.name}}-{{cust.accounts}}</option>
+                {% endfor %}
+        </select>
+    <br><br>
+        Account List :  <select name="accounts" multiple>
+                {% for acc in accounts %}
+                    <option value="{{acc.id}}">{{acc.id}}-{{acc.type}}</option>
+                {% endfor %}
+
+        </select>
+<br><br>
+        <input type="submit">
+
+    </form>
+
+
+</body>
+</html>
